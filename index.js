@@ -160,7 +160,7 @@ addEventListener('keydown', ({ key }) =>{
                     }
                 })
             )
-            console.log(projectiles)
+            // console.log(projectiles)
             break
     }
 })
