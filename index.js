@@ -210,11 +210,19 @@ function animate() {
         }
     })
 
-    grids.forEach(grid => {
+    grids.forEach((grid) => {
         grid.update()
         grid.invaders.forEach((invader, i) => {
             invader.update({ velocity: grid.velocity })
-
+            projectiles.forEach((projectile, j) => {
+                if (projectile.position.y - projectile.radius <=
+                    invader.position.y + invader.height) {
+                    setTimeout(() => {
+                        grid.invaders.splice(i, 1)
+                        projectiles.splice(j, 1)
+                    }, 0)
+                }
+            })
         })
     })
 
@@ -232,7 +240,7 @@ function animate() {
         player.rotation = 0
     }
 
-    console.log(frames)
+    // console.log(frames)
     // spawing enemies
     if (frames % randomInterval === 0) {
         grids.push(new Grid())
