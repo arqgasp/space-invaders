@@ -216,10 +216,24 @@ function animate() {
             invader.update({ velocity: grid.velocity })
             projectiles.forEach((projectile, j) => {
                 if (projectile.position.y - projectile.radius <=
-                    invader.position.y + invader.height) {
+                    invader.position.y + invader.height &&
+                    projectile.position.x + projectile.radius >=
+                    invader.position.x && projectile.position.x -
+                    projectile.radius <=
+                    invader.position.x + invader.width && projectile.position.y +
+                    projectile.radius >= invader.position.y
+                ) {
                     setTimeout(() => {
-                        grid.invaders.splice(i, 1)
-                        projectiles.splice(j, 1)
+                        const invaderFound = grid.invaders.find(invader2 => {
+                            return invader2 === invader
+                        })
+                        const projectileFound = projectiles.find(
+                            projectile2 => projectile2 === projectile)
+
+                        if (invaderFound && projectileFound) {
+                            grid.invaders.splice(i, 1)
+                            projectiles.splice(j, 1)
+                        }
                     }, 0)
                 }
             })
