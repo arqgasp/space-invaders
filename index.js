@@ -29,64 +29,64 @@ class Player {
     }
 
     draw() {
-    //    c.fillStyle = 'red'
-    //    c.fillRect(this.position.x, this.position.y, this.width, this.height) 
+        //    c.fillStyle = 'red'
+        //    c.fillRect(this.position.x, this.position.y, this.width, this.height) 
 
         c.save()
         c.translate(
-            player.position.x + player.width /2, 
-            player.position.y + player.height /2
-            )
+            player.position.x + player.width / 2,
+            player.position.y + player.height / 2
+        )
 
         c.rotate(this.rotation)
 
         c.translate(
-        -player.position.x - player.width /2, 
-        -player.position.y - player.height /2
+            -player.position.x - player.width / 2,
+            -player.position.y - player.height / 2
         )
 
-       c.drawImage(
-        this.image, 
-        this.position.x, 
-        this.position.y, 
-        this.width, 
-        this.height
+        c.drawImage(
+            this.image,
+            this.position.x,
+            this.position.y,
+            this.width,
+            this.height
         )
         c.restore()
     }
-    update(){
+    update() {
         if (this.image) {
-       this.draw() 
-       this.position.x += this.velocity.x
+            this.draw()
+            this.position.x += this.velocity.x
         }
     }
 }
 
 class Projectile {
-constructor({ position, velocity }){
-    this.position = position
-    this.velocity = velocity
+    constructor({ position, velocity }) {
+        this.position = position
+        this.velocity = velocity
 
-    this.radius = 3
-}
-draw() {
-    c.beginPath()
-    c.arc(this.position.x, this.position.y, this.radius, 0, 
-    Math.PI*2)
-    c.fillStyle = 'red'
-    c.fill()
-    c.closePath()
+        this.radius = 3
+    }
+    draw() {
+        c.beginPath()
+        c.arc(this.position.x, this.position.y, this.radius, 0,
+            Math.PI * 2)
+        c.fillStyle = 'red'
+        c.fill()
+        c.closePath()
     }
 
-update() {
-    this.draw()
-    this.position.x += this.velocity.x
-    this.position.y += this.velocity.y
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
     }
 }
 
 class Invader {
-    constructor({position}) {
+    constructor({ position }) {
 
         this.velocity = {
             x: 0,
@@ -109,29 +109,29 @@ class Invader {
     }
 
     draw() {
-    //    c.fillStyle = 'red'
-    //    c.fillRect(this.position.x, this.position.y, this.width, this.height) 
+        //    c.fillStyle = 'red'
+        //    c.fillRect(this.position.x, this.position.y, this.width, this.height) 
 
-       c.drawImage(
-        this.image, 
-        this.position.x, 
-        this.position.y, 
-        this.width, 
-        this.height
+        c.drawImage(
+            this.image,
+            this.position.x,
+            this.position.y,
+            this.width,
+            this.height
         )
     }
-    update({velocity}){
+    update({ velocity }) {
         if (this.image) {
-       this.draw() 
-       this.position.x += velocity.x
-       this.position.y += velocity.y
+            this.draw()
+            this.position.x += velocity.x
+            this.position.y += velocity.y
 
         }
     }
 }
 
 class Grid {
-    constructor () {
+    constructor() {
         this.position = {
             x: 0,
             y: 0
@@ -150,28 +150,29 @@ class Grid {
         this.width = columns * 30
 
         for (let x = 0; x < columns; x++) {
-        for (let y = 0; y < rows; y++) {
-        this.invaders.push(new Invader({position: {
-            x: x * 30,
-            y: y * 30
-        }
-      })
-    )
-    }
-    }
-        console.log(this.invaders)
-    }
-        update() {
-            this.position.x += this.velocity.x
-            this.position.y += this.velocity.y
-            this.velocity.y = 0
-
-            if (this.position.x + this.width >= canvas.width || this.position.x <= 0){
-                this.velocity.x = -this.velocity.x
-                this.velocity.y = 30
+            for (let y = 0; y < rows; y++) {
+                this.invaders.push(new Invader({
+                    position: {
+                        x: x * 30,
+                        y: y * 30
+                    }
+                })
+                )
             }
         }
-    
+        console.log(this.invaders)
+    }
+    update() {
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+        this.velocity.y = 0
+
+        if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
+            this.velocity.x = -this.velocity.x
+            this.velocity.y = 30
+        }
+    }
+
 }
 
 const player = new Player()
@@ -190,6 +191,10 @@ const keys = {
 
 }
 
+let frames = 0
+let randomInterval = Math.floor(Math.random() * 500 + 500)
+console.log(randomInterval)
+
 function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
@@ -197,7 +202,7 @@ function animate() {
     player.update()
     projectiles.forEach((projectile, index) => {
         if (projectile.position.y + projectile.radius <= 0) {
-            setTimeout(() =>{
+            setTimeout(() => {
                 projectiles.splice(index, 1)
             }, 0)
         } else {
@@ -207,30 +212,42 @@ function animate() {
 
     grids.forEach(grid => {
         grid.update()
-        grid.invaders.forEach((invader) => {
-            invader.update({velocity: grid.velocity})
+        grid.invaders.forEach((invader, i) => {
+            invader.update({ velocity: grid.velocity })
+
         })
     })
 
-    if (keys.a.pressed && player.position.x >= 0){
+    if (keys.a.pressed && player.position.x >= 0) {
         player.velocity.x = -7
         player.rotation = -0.15
     } else if (
-        keys.d.pressed && 
+        keys.d.pressed &&
         player.position.x + player.width <= canvas.width
-        ) {
+    ) {
         player.velocity.x = 7
         player.rotation = 0.15
     } else {
         player.velocity.x = 0
         player.rotation = 0
     }
+
+    console.log(frames)
+    // spawing enemies
+    if (frames % randomInterval === 0) {
+        grids.push(new Grid())
+        randomInterval = Math.floor(Math.random() * 500 + 500)
+        frames = 0
+        console.log(randomInterval)
+    }
+
+    frames++
 }
 
 
 animate()
 
-addEventListener('keydown', ({ key }) =>{
+addEventListener('keydown', ({ key }) => {
     switch (key) {
         case 'a':
             // console.log( 'left')
@@ -246,7 +263,7 @@ addEventListener('keydown', ({ key }) =>{
             projectiles.push(
                 new Projectile({
                     position: {
-                        x: player.position.x + player.width /2,
+                        x: player.position.x + player.width / 2,
                         y: player.position.y
                     },
                     velocity: {
@@ -260,7 +277,7 @@ addEventListener('keydown', ({ key }) =>{
     }
 })
 
-addEventListener('keyup', ({ key }) =>{
+addEventListener('keyup', ({ key }) => {
     switch (key) {
         case 'a':
             // console.log( 'left')
