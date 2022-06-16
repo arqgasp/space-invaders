@@ -5,19 +5,8 @@ Web application I developed using javascript following the tutorial of Chris Cou
 ## Imagem
 
 <p align="center">
-<img alt="askr" align="middle" src="https://github.com/arqgasp/Dice-challenge/blob/main/preview.png" width="90%">
+<img alt="askr" align="middle" src="https://github.com/arqgasp/space-invaders/blob/master/preview.png" width="90%">
 </p>
-
-
-## Funcionalities 
-  - Logout funcionando, 
-  - Campos dos formulários obrigatórios, 
-  - Inputs dos formulários vazios após post,
-  - Seguidores/Seguindo de acordo com o usuário,
-  - Possibilidade de criar comunidades,
-
-
-
 
 
 ## Language used
