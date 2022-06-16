@@ -8,6 +8,11 @@ Web application I developed using javascript following the tutorial of Chris Cou
 <img alt="askr" align="middle" src="https://github.com/arqgasp/space-invaders/blob/master/preview.png" width="90%">
 </p>
 
+## Functionalities
+  - Score when it hits invaders, 
+  - 'You lose' conditions, 
+  - Invaders respawn.
+
 
 ## Language used
 
@@ -16,4 +21,4 @@ Web application I developed using javascript following the tutorial of Chris Cou
 
 ---
 
-<p align="center"> 2021 by: Gabriel Pereira
+<p align="center"> 2022 by: Gabriel Pereira
